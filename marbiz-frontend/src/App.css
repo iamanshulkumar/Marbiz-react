@@ -1619,18 +1619,21 @@ div:where(.swal2-container) h2:where(.swal2-title) {
   position: relative;
 }
 
-.portfolio-images .image-overlay button {
+.portfolio-images .image-overlay button,
+.youtube-container .image-overlay button{
   color: white;
   border: 1px solid white;
 }
 
-.portfolio-images .image-overlay button:hover {
+.portfolio-images .image-overlay button:hover,
+.youtube-container.image-overlay button:hover {
   color: rgb(255, 134, 48);
   border-color: rgb(255, 134, 48);
   background-color: #0000007a;
 }
 
-.portfolio-images .image-overlay {
+.portfolio-images .image-overlay,
+.youtube-container .image-overlay{
   position: absolute;
   bottom: 0;
   left: 0;

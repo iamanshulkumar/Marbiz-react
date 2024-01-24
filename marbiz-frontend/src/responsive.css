@@ -84,6 +84,11 @@
     width: 360px;
   }
 
+  .portfolio-images .image-overlay,
+.youtube-container .image-overlay {
+  opacity: 1;
+}
+
   .package-navigation {
     justify-content: center;
   }
