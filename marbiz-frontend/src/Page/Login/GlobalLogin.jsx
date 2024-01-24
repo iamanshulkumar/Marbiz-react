@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 
-const GlobalLogin = () => {
+const GlobalLogin = ({ showerror }) => {
   const navigate = useNavigate();
   document.title = "Login | MARBIZ ";
   const [validated, setValidated] = useState(false);
@@ -94,6 +94,7 @@ const GlobalLogin = () => {
         <Row className="justify-content-center align-items-center">
           <Col lg="6" md="8">
             <div className="text-white fs-1 text-center mb-3">Welcome Back</div>
+            <h3 className="text-center text-danger">{showerror}</h3>
             <div className="inquiry-form rounded-3 p-4 ">
               <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formEmail">

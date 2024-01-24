@@ -29,10 +29,10 @@ const CreatorNavigation = () => {
                     <div className="creator-dashboard-nav ">
                         <div className="creator-dashboard-inner">
                             <ul data-submenu-title="Main Navigation" className="fw-bold">
-                                <li className={activeNavItem === 'Enquires' ? 'active' : ''}>
-                                    <Link to="/creatorDashboard/CreatorEnquiries" onClick={() => handleNavItemClick('Enquires')}>
+                                <li className={activeNavItem === 'Inquiries' ? 'active' : ''}>
+                                    <Link to="/creatorDashboard/CreatorEnquiries" onClick={() => handleNavItemClick('Inquiries')}>
                                         <i className="lni lni-files me-2"></i>
-                                        Enquires
+                                        Inquiries
                                     </Link>
                                 </li>
                                 <li className={activeNavItem === 'PortfolioList' ? 'active' : ''}>

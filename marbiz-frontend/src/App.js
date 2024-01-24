@@ -70,7 +70,7 @@ function App() {
           <Route path="/UploadImage" element={<UploadImage />} />
           <Route path="/inquiryform/:regName" element={<InquiryForm />} />
 
-          <Route path="/CreatorDashboard" element={<CreatorNavigation pagetitle="Dashboard" />} >
+          <Route path="/CreatorDashboard" element={localStorage.getItem("authUser")?<CreatorNavigation pagetitle="Dashboard" />:<GlobalLogin showerror="You need to Login First..."/>} >
             <Route path="CreatorMyProfile" element={<CreatorMyProfile pagetitle="My Profile" />} />
             <Route path="CreatorPackages" element={<CreatorPackages pagetitle="My Packages" />} />
             <Route path="AddPackages" element={<AddPackages pagetitle="Add New Packages" />} />
@@ -85,7 +85,7 @@ function App() {
           <Route path="/brand" element={<Brand />} />
           <Route path="/brand-signup" element={<BrandSignup />} />
 
-          <Route path="/brand-dashboard" element={<BrandNavigation />}>
+          <Route path="/brand-dashboard" element={localStorage.getItem("authUser")?<BrandNavigation />:<GlobalLogin showerror="You need to Login First..."/>}>
             <Route path="brandHome" element={<BrandHome />} />
             <Route path="brandBooking" element={<BrandBooking />} />
             <Route path="brandWishlist" element={<BrandWishlist />} />
