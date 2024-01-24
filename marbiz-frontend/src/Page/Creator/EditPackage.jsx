@@ -1,8 +1,8 @@
 import { isEmpty } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import Swal from "sweetalert2";
-import { getPublicList, PackageById, updatePackage, PackageByIdAndType } from '../../services/api/api-service';
-import { useLocation } from 'react-router-dom';
+import { getPublicList, PackageById, updatePackage, PackageByIdAndType, deletePackage } from '../../services/api/api-service';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const EditPackage = ({ pagetitle }) => {
     const [platformlist, setPlatform] = useState([]);
@@ -11,6 +11,65 @@ const EditPackage = ({ pagetitle }) => {
     const [AllPackages, setAllPackages] = useState([]);
     const [packageId, setPackageId] = useState(null); // State to store packageId
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const handleDelete = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'It will be permanently deleted!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User clicked 'Yes, delete it!'
+                // Make an API call to delete the portfolio content
+                deletePortfolioContent(packageId);
+            } else if (result.dismiss === 'cancel') {
+                Swal.fire(
+                    'Cancelled',
+                    'Your content is safe :)',
+                    'info'
+                );
+            }
+        });
+    };
+    
+    function deletePortfolioContent(packageId) {
+
+        console.log("Deleting portfolio content with ID:", packageId);
+        if (packageId !== null) {
+            deletePackage(packageId) 
+                .then(result => {
+                    console.log("Delete API result:", result);
+                    if (result && result.count === 1) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted Successfully',
+                            text: 'Your portfolio content has been deleted.',
+                        });
+                        navigate(-1);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Deletion Failed',
+                            text: 'There was an error deleting the portfolio content.',
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting portfolio content:', error);
+                    // Handle errors that occurred during the API call
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Deletion Failed',
+                        text: 'There was an error deleting the portfolio content.',
+                    });
+                });
+        }
+    }
 
     const handleContentQuantityChange = (event) => {
         const value = parseInt(event.target.value, 10);
@@ -48,7 +107,9 @@ const EditPackage = ({ pagetitle }) => {
                     "Your Package successfully updated !",
                     "success"
                 );
-                window.location.reload(true);
+                // window.location.reload(true);
+                navigate(-1);
+
             } else {
                 Swal.fire(
                     "Oops !",
@@ -242,6 +303,8 @@ const EditPackage = ({ pagetitle }) => {
                         Submit
                     </button>
                 </form>
+                <button className="px-3 btn-global-danger position-absolute bottom-0" onClick={handleDelete}>Delete</button>
+
             </div>
         </>
     );

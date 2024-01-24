@@ -2,10 +2,13 @@ import { isEmpty, result } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import Swal from "sweetalert2";
 import { createPackage, getPublicList } from '../../services/api/api-service';
+import { useNavigate } from 'react-router-dom';
 
 const AddPackages = ({ pagetitle }) => {
 
     const [platformlist, setPlatform] = useState([]);
+    const navigate = useNavigate();
+
     const [contentTypelist, setContentType] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
@@ -52,13 +55,15 @@ const AddPackages = ({ pagetitle }) => {
                     "Your Package successfully updated !",
                     "success"
                 );
-                window.location.reload(true);
+                // window.location.reload(true);
+                navigate(-1);
+
             }
             else {
                 Swal.fire(
                     "Oops !",
                     "Package not uploaded successfully !",
-                    "success"
+                    "error"
                 );
             }
         })

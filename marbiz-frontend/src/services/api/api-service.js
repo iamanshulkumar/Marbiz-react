@@ -205,6 +205,10 @@ export const updatePackage = (data) => {
   return upsertPatch("Packages", data);
 };
 
+export const deletePackage = (id) => {
+  return deleteById("Packages", id);
+};
+
 
 export const PackageById = (id) => {
   let userId = null;
