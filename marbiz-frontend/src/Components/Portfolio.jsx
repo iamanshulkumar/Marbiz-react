@@ -5,7 +5,6 @@ import { Modal, Button } from "react-bootstrap";
 import { getPublicList, getImagesListType } from "../services/api/api-service"
 import { useNavigate } from 'react-router-dom'
 
-
 const Portfolio = ({ userId }) => {
 
     const [list, setList] = useState([]);
@@ -64,7 +63,7 @@ const Portfolio = ({ userId }) => {
                 });
         }
     }
-
+    
     return (
         <>
             {/* Tabs navs */}
@@ -108,7 +107,6 @@ const Portfolio = ({ userId }) => {
                                                 {currentPathname.includes("/creatorDashboard/PortfolioList") &&
                                                     <div className="image-overlay  ">
                                                         <div className="d-flex mb-3">
-                                                            <button className="px-3 btn me-2">Delete</button>
                                                             <button className="px-3 btn " onClick={() => handleEditClick(item.id)}>Edit</button>
                                                         </div>
 
@@ -134,7 +132,6 @@ const Portfolio = ({ userId }) => {
                                                     <div className="image-overlay  ">
                                                         <div className="d-flex mb-3">
 
-                                                            <button className="px-3 btn me-2">Delete</button>
                                                             <button className="px-3 btn " onClick={() => handleEditClick(item.id)}>Edit</button>
                                                         </div>
 

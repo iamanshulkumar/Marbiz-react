@@ -417,10 +417,10 @@ const CreatorMyProfile = ({ pagetitle }) => {
                   alt={_.get(profileData, "fullName") ? profileData.fullName : "User"}
                   className="rounded-3 img-fluid"
                 />
-              </label>
               <div className="gallery-overlay fs-6">
                 <span>Change Gallery Image</span>
               </div>
+              </label>
             </div>
           </Col>
 
@@ -447,7 +447,7 @@ const CreatorMyProfile = ({ pagetitle }) => {
                           ? defaultImage
                           : selectedImage2
                       }
-                      alt=""
+                      alt={_.get(profileData, "fullName") ? profileData.fullName : "User"}
                       className="rounded-3"
                     />
                     <div className="gallery-overlay fs-6">

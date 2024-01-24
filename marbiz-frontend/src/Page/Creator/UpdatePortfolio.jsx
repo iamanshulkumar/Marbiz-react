@@ -4,9 +4,11 @@ import Swal from "sweetalert2";
 import Imagyoutube from '../../Images/link-image.png';
 import { Modal, Button } from "react-bootstrap";
 import { getPublicList, UploadImages, getInfluencersProfilebyId } from '../../services/api/api-service';
+import { useNavigate } from 'react-router-dom';
 
 const UpdatePortfolio = ({ pagetitle }) => {
     const [show, setShow] = useState(false);
+    const navigate = useNavigate();
     const handleShow = () => {
         setShow(true);
     };
@@ -109,6 +111,7 @@ const UpdatePortfolio = ({ pagetitle }) => {
             if (formData.caption !== "Image") {
                 if (formData.sourceUrl) {
                     videoId1 = extractVideoId(formData.sourceUrl);
+                    
                 }
                 else {
                     Swal.fire({
@@ -135,7 +138,8 @@ const UpdatePortfolio = ({ pagetitle }) => {
                         title: "Upload Successfully",
                         text: "Image upload successfully uploaded !",
                     })
-                    window.location.reload(true)
+                    // window.location.reload(true)
+                    navigate(-1);
                 }
             })
         } else {

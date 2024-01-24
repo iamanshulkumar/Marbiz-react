@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Swal from "sweetalert2";
 import Imagyoutube from '../../Images/link-image.png';
 import { Modal, Button } from "react-bootstrap";
-import { getPublicList, updateImage, getPortfolioByID } from '../../services/api/api-service';
-import { useLocation } from 'react-router-dom';
+import { getPublicList, updateImage, getPortfolioByID, deleteImage } from '../../services/api/api-service';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const EditPortfolio = ({ pagetitle }) => {
     const [show, setShow] = useState(false);
@@ -14,6 +14,66 @@ const EditPortfolio = ({ pagetitle }) => {
     const location = useLocation();
     const [currentContentID, setCurrentContentID] = useState(null);
     const [portfolioContent, setPortfolioContent] = useState([]);
+    const navigate = useNavigate();
+
+    const handleDelete = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'It will be permanently deleted!',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // User clicked 'Yes, delete it!'
+                // Make an API call to delete the portfolio content
+                deletePortfolioContent(currentContentID);
+            } else if (result.dismiss === 'cancel') {
+                Swal.fire(
+                    'Cancelled',
+                    'Your content is safe :)',
+                    'info'
+                );
+            }
+        });
+    };
+    
+    function deletePortfolioContent(contentID) {
+
+        console.log("Deleting portfolio content with ID:", contentID);
+        if (contentID !== null) {
+            deleteImage(contentID) 
+                .then(result => {
+                    console.log("Delete API result:", result);
+                    if (result && result.count === 1) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted Successfully',
+                            text: 'Your portfolio content has been deleted.',
+                        });
+                        navigate(-1);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Deletion Failed',
+                            text: 'There was an error deleting the portfolio content.',
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting portfolio content:', error);
+                    // Handle errors that occurred during the API call
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Deletion Failed',
+                        text: 'There was an error deleting the portfolio content.',
+                    });
+                });
+        }
+    }
+    
 
 
 
@@ -105,6 +165,7 @@ const EditPortfolio = ({ pagetitle }) => {
             if (formData.caption !== "Image") {
                 if (formData.sourceUrl) {
                     videoId1 = extractVideoId(formData.sourceUrl);
+                    
                 }
                 else {
                     Swal.fire({
@@ -133,7 +194,8 @@ const EditPortfolio = ({ pagetitle }) => {
                         title: "Upload Successfully",
                         text: "Image upload successfully uploaded !",
                     })
-                    window.location.reload(true)
+                    // window.location.reload(true)
+                    navigate(-1);
                 }
             }).catch(error => {
                 console.error("Update Image Error:", error);
@@ -323,10 +385,14 @@ const EditPortfolio = ({ pagetitle }) => {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <button type="submit" className="btn-global px-3">
-                        Submit
-                    </button>
+                    <div className='d-flex justify-content-between '>
+
+                        <button type="submit" className="btn-global px-3">
+                            Submit
+                        </button>
+                    </div>
                 </form>
+                <button className="px-3 btn-global-danger position-absolute bottom-0" onClick={handleDelete}>Delete</button>
             </div>
             <Modal show={show} onHide={handleClose} centered closeButton size="lg" className="youtube-mobal-box" id="youtube-mobal-box">
                 {/* <Modal.Header  /> */}

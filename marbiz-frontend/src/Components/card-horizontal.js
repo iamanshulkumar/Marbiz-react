@@ -19,15 +19,15 @@ export const CardHorizontal = ({ details }) => {
             <div className='row'>
                 {details?.map(item =>
                     <div className='col-md-4'>
-                        <div class="card border border-danger newcard">
-                            <img src={image} class="card-img-top" alt="..." />
-                            <div class="card-body">
-                                <div class="text-section">
-                                    <h5 class="">{item.name}</h5>
-                                    <p class="card-text">{item.occasion}/{item.venueCity}</p>
+                        <div className="card border border-danger newcard">
+                            <img src={image} className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <div className="text-section">
+                                    <h5 className="">{item.name}</h5>
+                                    <p className="card-text">{item.occasion}/{item.venueCity}</p>
                                 </div>
-                                <div class="cta-section">
-                                    <button onClick={() => HandlerView(item)} class="btn-global px-2" style={{ fontSize: 12 }}>View more</button>
+                                <div className="cta-section">
+                                    <button onClick={() => HandlerView(item)} className="btn-global px-2" style={{ fontSize: 12 }}>View more</button>
                                 </div>
                             </div>
                         </div>
