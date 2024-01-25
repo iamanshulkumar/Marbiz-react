@@ -18,7 +18,7 @@ const Explore = () => {
       .then((result) => {
         if (Array.isArray(result) && result.length > 0) {
           setList(result);
-          console.log("list",result)
+          // console.log("list",result)
         } else {
           console.error("API response is empty or invalid:", result);
           setTimeout(() => {

@@ -54,7 +54,7 @@ export default function EmailVerify(props) {
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      console.log("Form data submitted:", formData);
+      // console.log("Form data submitted:", formData);
       const dataJson = [];
       dataJson.push({
         contactName: formData.fullName,
@@ -68,7 +68,7 @@ export default function EmailVerify(props) {
       });
 
       createMtUsers(dataJson[0]).then((result) => {
-        console.log("save", result);
+        // console.log("save", result);
         if (result) {
           emailjs
             .send(

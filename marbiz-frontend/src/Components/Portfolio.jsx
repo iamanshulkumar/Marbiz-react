@@ -91,7 +91,7 @@ const Portfolio = ({ userId }) => {
                         <div className="row py-2">
                             <span className="fs-5 text-white mb-2">{Category}</span>
                             {list.map((item, index) =>
-                                <div className='col-md-3 col-6 mb-3 ' key={index}>
+                                <div className='col-md-2 col-6 mb-3 ' key={index}>
                                     <div className="reel-card">
                                         {item.caption === "Image" &&
                                             <div className="portfolio-images">

@@ -42,7 +42,7 @@ const CreatorMyProfile = ({ pagetitle }) => {
 
       // Fetch user profile data from DB of logged in user
       getInfluencersProfilebyId(obj.id).then((result) => {
-        console.log("get the influencers profile", result)
+        // console.log("get the influencers profile", result)
 
         setprofile(result); //store all profile data in profile state 
         setprofileId(result.id) // store user id id in profileID state 
@@ -223,7 +223,7 @@ const CreatorMyProfile = ({ pagetitle }) => {
       uploadfile(selectedfile4, setSelectedImage4),
     ]
     const results = await Promise.all(promises)
-    console.log("results", results)
+    // console.log("results", results)
 
     if (results.every(result => result === true)) {
       const data = {

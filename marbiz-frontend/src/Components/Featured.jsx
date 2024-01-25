@@ -11,7 +11,7 @@ const Featured = (props) => {
     getInfluencersList(4)
       .then((result) => {
 
-        console.log("API Response:", result);
+        // console.log("API Response:", result);
         if (Array.isArray(result) && result.length > 0) {
 
           setTimeout(() => {

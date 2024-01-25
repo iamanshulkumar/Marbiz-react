@@ -39,12 +39,12 @@ const EditPortfolio = ({ pagetitle }) => {
             }
         });
     };
-    
+
     function deletePortfolioContent(contentID) {
 
         console.log("Deleting portfolio content with ID:", contentID);
         if (contentID !== null) {
-            deleteImage(contentID) 
+            deleteImage(contentID)
                 .then(result => {
                     console.log("Delete API result:", result);
                     if (result && result.count === 1) {
@@ -73,9 +73,6 @@ const EditPortfolio = ({ pagetitle }) => {
                 });
         }
     }
-    
-
-
 
     const handleShow = () => {
         setShow(true);
@@ -165,7 +162,6 @@ const EditPortfolio = ({ pagetitle }) => {
             if (formData.caption !== "Image") {
                 if (formData.sourceUrl) {
                     videoId1 = extractVideoId(formData.sourceUrl);
-                    
                 }
                 else {
                     Swal.fire({
@@ -293,7 +289,7 @@ const EditPortfolio = ({ pagetitle }) => {
         }
     }, [portfolioContent]);
 
-    console.log("current data inside form Data", formData)
+    // console.log("current data inside form Data", formData)
 
     return (
         <>
@@ -381,7 +377,7 @@ const EditPortfolio = ({ pagetitle }) => {
                             name="sourceUrl"
                             id='sourceUrl'
                             placeholder={formData.caption !== "Image" ? 'https://www.youtube.com/watch?v=VIDEO-ID' : 'Image Source'}
-                            value={formData.caption !== "Image" ? `https://www.youtube.com/watch?v=${formData.sourceUrl || ''}` : formData.sourceUrl || ''}
+                            value={formData.caption !== "Image" ? `${formData.sourceUrl || ''}` : formData.sourceUrl || ''}
                             onChange={handleInputChange}
                         />
                     </div>

@@ -16,7 +16,7 @@ export default function CreatorSignUp() {
       if (claimtext.target.value != null) {
         checkPublicName(claimtext.target.value)
           .then((result) => {
-            console.log("API Response:", result); // Log the response for debugging
+            // console.log("API Response:", result); // Log the response for debugging
             if (result && result.count !== undefined) {
               if (result.count > 0) {
                 Swal.fire(

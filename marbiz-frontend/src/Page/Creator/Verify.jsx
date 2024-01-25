@@ -10,7 +10,7 @@ export default function Verify() {
   useEffect(() => {
     if (searchParams.get("email")) {
       findRegisterProfile(searchParams.get("email")).then((result) => {
-        console.log("verify account", result[0]);
+        // console.log("verify account", result[0]);
         setdata(result[0]);
         if (result[0]) {
           setverifyStatus(2);

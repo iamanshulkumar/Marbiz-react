@@ -205,3 +205,13 @@
 #youtube-mobal-box .modal-body {
   background-color: black;
 }
+
+div:where(.swal2-container) img:where(.swal2-image) {
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup){
+  background-color: #333333 !important;
+  color: white !important;
+}

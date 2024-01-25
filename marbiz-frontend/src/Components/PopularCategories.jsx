@@ -11,7 +11,7 @@ const PopularCategories = ({ title }) => {
       setTimeout(() => {
         setCategory(result); // Use placeholder data
       }, 1000);
-      console.log("API Response:", categoryList)
+      // console.log("API Response:", categoryList)
 
     });
   }, []);

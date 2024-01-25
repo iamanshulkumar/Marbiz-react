@@ -24,11 +24,11 @@ const AddPackages = ({ pagetitle }) => {
 
     });
 
-    console.log("Initial qty inside form data :", formData);
+    // console.log("Initial qty inside form data :", formData);
 
     const handleContentQuantityChange = (event) => {
         const value = parseInt(event.target.value, 10); // Parse the value as an integer
-        console.log("Initial qty inside handleContentQuantityChange:", formData.contentQuantity)
+        // console.log("Initial qty inside handleContentQuantityChange:", formData.contentQuantity)
         setFormData({
             ...formData,
             contentQuantity: value, // Ensure it's defined as a number

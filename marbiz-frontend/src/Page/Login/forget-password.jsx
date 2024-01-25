@@ -29,7 +29,7 @@ const ForgetPassword = () => {
         }
     }
     const VerifyOtp = () => {
-        console.log(otp)
+        // console.log(otp)
         navigate(`/ChangePassword/${formData.username}`, {
             replace: true,
         });

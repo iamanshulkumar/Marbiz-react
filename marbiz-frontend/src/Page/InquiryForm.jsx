@@ -73,7 +73,7 @@ const InquiryForm = () => {
       // console.log("Handler7");
       newErrors.mobile = "Please enter a valid mobile number.";
     }
-    console.log(Object.keys(newErrors).length);
+    // console.log(Object.keys(newErrors).length);
     // Check if there are any errors, and if so, update the state
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);

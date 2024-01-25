@@ -85,9 +85,9 @@ export default function CreateProfile(props) {
       formData.regName = userdata.registerName;
       formData.mtUserId = userdata.id;
       formData.fullName = userdata.contactName;
-      console.log("Form data submitted:", formData);
+      // console.log("Form data submitted:", formData);
       createProfile(formData).then((result) => {
-        console.log("submitprofiledata", result);
+        // console.log("submitprofiledata", result);
         if (result) {
           Swal.fire(
             "Congratulations " + formData.fullName.trim(),

@@ -38,7 +38,7 @@ const BrandPassword = ({ pagetitle }) => {
   const handleSubmit = () => {
     if (formDatanew.password === formDatanew.cpassword) {
       const updatedFormData = { ...formData, password: formDatanew.password };
-      console.log("datapassword", updatedFormData)
+      // console.log("datapassword", updatedFormData)
       Swal.fire({
         title: "Logout Your account",
         width: 600,

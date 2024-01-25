@@ -6,17 +6,9 @@ import { Modal, Button } from "react-bootstrap";
 import { getPublicList, UploadImages, getInfluencersProfilebyId } from '../../services/api/api-service';
 import { useNavigate } from 'react-router-dom';
 
-const UpdatePortfolio = ({ pagetitle }) => {
-    const [show, setShow] = useState(false);
-    const navigate = useNavigate();
-    const handleShow = () => {
-        setShow(true);
-    };
-
-    const handleClose = () => {
-        setShow(false);
-    };
-
+const AddPortfolio = ({ pagetitle }) => {
+    const [show, setShow] = useState(false); // to maintain modal state
+    const navigate = useNavigate(); // for navigating after submission
     const [contentTypelist, setContentType] = useState([]);
     const [imagestatus, setImagestatus] = useState(false);
     const [formData, setFormData] = useState({
@@ -29,6 +21,14 @@ const UpdatePortfolio = ({ pagetitle }) => {
         sourceUrl: '',
     });
 
+    //to handle modal events
+    const handleShow = () => {
+        setShow(true);
+    };
+    const handleClose = () => {
+        setShow(false);
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -36,6 +36,7 @@ const UpdatePortfolio = ({ pagetitle }) => {
             [name]: value,
         });
     };
+
 
     function extractVideoId(url) {
         // Regular expressions to match YouTube URL patterns
@@ -48,6 +49,7 @@ const UpdatePortfolio = ({ pagetitle }) => {
 
         // Extract the video ID from the matched pattern
         if (shortMatch) {
+            console.log("checking shortMatch", shortMatch)
             return shortMatch[1];
         } else if (longMatch) {
             return longMatch[1];
@@ -61,27 +63,27 @@ const UpdatePortfolio = ({ pagetitle }) => {
         const file = e.target.files[0];
         if (file) {
             Swal.fire({
-                title: "Do you upload this file !",
-                width: 600,
-                padding: "3em",
+                title: "Looks good?!",
+                width: 400,
+                padding: "1.5em",
                 customClass: {
                     title: 'my-swal-title',
                 },
                 // imageUrl: e.target.result,
                 imageUrl: URL.createObjectURL(file),
 
-                imageWidth: 400,
-                imageHeight: 200,
+                imageWidth: 250,
+                imageHeight: 250,
                 imageAlt: 'Custom image',
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
+                confirmButtonColor: "#3AB439",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes",
+                confirmButtonText: "Upload",
                 cancelButtonText: "Cancel",
             }).then((result) => {
                 if (result.isConfirmed) {
                     uploadfile(file).then((data) => {
-                        console.log(data);
+                        // console.log(data);
                         if (data.status) {
                             setImagestatus(true)
                             setFormData({
@@ -105,50 +107,56 @@ const UpdatePortfolio = ({ pagetitle }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         // Check if sourceUrl is not empty before extracting videoId
         if (formData.caption !== null) {
-            let videoId1 = "";
+            let videoId = "";
             if (formData.caption !== "Image") {
-                if (formData.sourceUrl) {
-                    videoId1 = extractVideoId(formData.sourceUrl);
-                    
-                }
-                else {
+                if (!formData.sourceUrl || !formData.sourceUrl.trim()) {
                     Swal.fire({
                         icon: "error",
                         title: "Error",
-                        text: "Source Url is empty. Please provide a valid URL.",
+                        text: "Source URL is empty. Please provide a valid URL.",
                     });
+                    return;
                 }
-                return;
+
+                // Extract videoId if sourceUrl is provided
+                videoId = formData.sourceUrl ? extractVideoId(formData.sourceUrl) : null;
+
+                console.log("content inside videoID:", videoId)
+
+                // Update formData with extracted videoId
+                setFormData({
+                    ...formData,
+                    sourceUrl: videoId,
+                });
             }
-            else {
-                videoId1 = formData.sourceUrl;
-            }
-            const data = [];
-            data.push({
+
+            // Prepare data for submission
+            const data = [{
                 ...formData,
-                sourceUrl: videoId1,
-            })
-            // console.log(data);
-            UploadImages(data).then(result => {
-                if (!isEmpty(result)) {
+            }];
+
+            // Upload data
+            UploadImages(data)
+                .then(result => {
+                    if (!isEmpty(result)) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Upload Successfully",
+                            text: "Image upload successfully uploaded!",
+                        });
+                        navigate(-1); // Navigate back
+                    }
+                })
+                .catch(error => {
                     Swal.fire({
-                        icon: "success",
-                        title: "Upload Successfully",
-                        text: "Image upload successfully uploaded !",
-                    })
-                    // window.location.reload(true)
-                    navigate(-1);
-                }
-            })
-        } else {
-            // Handle the case where sourceUrl is empty
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Content Type is empty. Please provide a valid URL.",
-            });
+                        icon: "error",
+                        title: "Error",
+                        text: "Failed to upload image. Please try again later.",
+                    });
+                });
         }
     };
 
@@ -187,7 +195,7 @@ const UpdatePortfolio = ({ pagetitle }) => {
             const obj = JSON.parse(localStorage.getItem("authUser"));
             getInfluencersProfilebyId(obj.id)
                 .then((result) => {
-                    console.log("loginUser", { mtUserId: obj.id, profileId: result.id })
+                    // console.log("loginUser", { mtUserId: obj.id, profileId: result.id })
                     setFormData({ mtUserId: obj.id, profileId: result.id });
                 })
                 .catch((err) => {
@@ -215,7 +223,7 @@ const UpdatePortfolio = ({ pagetitle }) => {
                             required
                             data-mdb-showcounter="true"
                             maxLength="20"
-                            placeholder="Title"
+                            placeholder="Enter title for content"
                             value={formData.title}
                             onChange={handleInputChange}
                         />
@@ -232,7 +240,7 @@ const UpdatePortfolio = ({ pagetitle }) => {
                             value={formData.caption}
                             onChange={handleInputChange}
                         >
-                            <option value="">Select an option</option>
+                            <option value="">Select content type</option>
                             {contentTypelist.map(item =>
                                 <option value={item.value}>{item.label}</option>
                             )}
@@ -266,7 +274,7 @@ const UpdatePortfolio = ({ pagetitle }) => {
                         )}
                     </div>
                     <div className="mb-3">
-                        
+
                         <label htmlFor="sourceUrl" className="form-label text-white">
                             {formData.caption !== "Image" ? (
                                 <span>
@@ -308,4 +316,4 @@ const UpdatePortfolio = ({ pagetitle }) => {
     );
 };
 
-export default UpdatePortfolio;
+export default AddPortfolio;

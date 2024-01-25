@@ -12,7 +12,7 @@ const BrandSignup = () => {
   const navigate = useNavigate();
   document.title = "Create Account | Marbiz";
   const responseGoogle = (response) => {
-    console.log(response);
+    // console.log(response);
   };
   const [validated, setValidated] = useState(false);
   const [category, setCategory] = useState([]);
@@ -48,7 +48,7 @@ const BrandSignup = () => {
       if (form.checkValidity() === false) {
       } else {
         // Access the form data here
-        console.log(formData);
+        // console.log(formData);
         const data = [];
         data.push({
           phoneVerified: false,

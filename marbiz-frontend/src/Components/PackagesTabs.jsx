@@ -21,9 +21,9 @@ const PackagesTabs = ({ userId, regName }) => {
     setList([]);
     if (type == null) {
       PackageById(user).then(result => {
+        console.log("package by id", result);
         if (!isEmpty(result)) {
           setList(result);
-          console.log("package by id", result.id)
         }
       }).catch((e) => {
         setList([]);
@@ -74,7 +74,7 @@ const PackagesTabs = ({ userId, regName }) => {
           <button
             className={`nav-link ${Category == 'User Generated Content' ? 'active' : ''}`}
             id="ugc-packages"
-            onClick={() => setCategory("User Generated Content")}
+            onClick={() => setCategory("UGC")}
           >
             UGC
           </button>
@@ -82,7 +82,7 @@ const PackagesTabs = ({ userId, regName }) => {
         <li className="nav-item">
           <button
             className={`nav-link ${Category == 'LinkedIn' ? 'active' : ''}`}
-            id="ugc-packages"
+            id="linkedin-packages"
             onClick={() => setCategory("LinkedIn")}
           >
             LinkedIn

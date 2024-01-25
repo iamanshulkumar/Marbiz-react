@@ -27,10 +27,10 @@ const GlobalLogin = ({ showerror }) => {
     } else {
       // Validation passed, check if the username is a valid email
       if (isEmailValid(formData.username)) {
-        console.log(formData);
+        // console.log(formData);
         loginUser(formData.username, formData.password)
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             Swal.fire({
               title: "Wellcome Marbiz",
               width: 600,

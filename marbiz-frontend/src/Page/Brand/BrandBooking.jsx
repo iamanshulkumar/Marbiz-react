@@ -13,7 +13,7 @@ const BrandBooking = () => {
     const [viewData, setviewdata] = useState({});
     const [useId, setuserId] = useState(null);
     const viewEnquiryHandler = data => {
-        console.log(data)
+        // console.log(data)
         if (!isEmpty(data)) {
             modelSetValue(true)
             setviewdata(data)
@@ -23,7 +23,7 @@ const BrandBooking = () => {
         getUserBooking(id)
         .then((result) => {
           if (!isEmpty(result)) {
-            console.log("result list", result);
+            // console.log("result list", result);
             const dataList = result.map(list=> ({
               name: list.name,
               status: list.status==="P"?"Pending":"View",
@@ -84,7 +84,7 @@ const BrandBooking = () => {
             const obj = JSON.parse(localStorage.getItem("authUser"));
             setuserId(obj.username);
             getdata(obj.username);
-            console.log(obj.username);
+            // console.log(obj.username);
         }
     }, [])
     return (
