@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import Swal from "sweetalert2";
 import EmailVerify from "./EmailVerify";
 import {
@@ -12,6 +11,7 @@ import SliderList from "../../Components/SliderList";
 import HeroBgGradient from "../../Components/HeroBgGradient";
 import Howitworks from "../../Components/Howitworks";
 import { Link } from "react-router-dom";
+import { isEmpty } from "lodash";
 
 
 
@@ -20,6 +20,7 @@ export default function Creator() {
   const [value, setvalue] = useState("");
   const [status, setstatus] = useState(false);
   const [Influencerlist, setInfluencerlist] = useState([]);
+  const [loginUser, setLoginUser] = useState([]);
 
   const headlerclaim = () => {
     if (claimtext) {
@@ -70,7 +71,16 @@ export default function Creator() {
       .catch((error) => {
         console.error("Error fetching data from the API:", error);
       });
+
+
+      if (localStorage.getItem("authUser")) {
+        const obj = JSON.parse(localStorage.getItem("authUser"));
+        // console.log("login user", obj);
+        setLoginUser(obj);
+      }
   }, []);
+
+  
   return (
     <>
       <HeroBgGradient />
@@ -93,6 +103,8 @@ export default function Creator() {
                   Instagram, TikTok, YouTube, and UGC brand deals
                 </p>
               </div>
+              {isEmpty(loginUser) && (
+
               <div className="username-holder flex-wrap justify-content-lg-between justify-content-sm-center p-2 my-3">
                 <div className="d-inline-flex ms-3 align-items-center">
                   <div className="username-domain">marbiz.in/</div>
@@ -116,6 +128,8 @@ export default function Creator() {
                   Claim
                 </div>
               </div>
+              )}
+
               {/* <div>
                 <Link to="/creatorDashboard/CreatorMyProfile">
                   <button className="btn-global px-4 py-2">Creator Dashboard</button>
