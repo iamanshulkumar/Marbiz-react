@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PackageCard from "./PackageCard";
 import ugcIcon from "../Images/ugc_icon.png"
-import instaIcon from "../Images/youtube_icon.png"
-import youtubeIcon from "../Images/insta_icon.png"
+import youtubeIcon from "../Images/youtube_icon.png"
+import instaIcon from "../Images/insta_icon.png"
 import LinkedIcon from "../Images/link.png"
 import { PackageById, PackageByIdAndType } from "../services/api/api-service"
 import { isEmpty, result } from "lodash";

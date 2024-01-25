@@ -108,35 +108,49 @@ const AddPortfolio = ({ pagetitle }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Check if content type is selected
+        if (formData.caption.trim() === '') {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Please select a content type.",
+            });
+            return;
+        }
+
         // Check if sourceUrl is not empty before extracting videoId
-        if (formData.caption !== null) {
-            let videoId = "";
-            if (formData.caption !== "Image") {
-                if (!formData.sourceUrl || !formData.sourceUrl.trim()) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: "Source URL is empty. Please provide a valid URL.",
-                    });
-                    return;
-                }
-
-                // Extract videoId if sourceUrl is provided
-                videoId = formData.sourceUrl ? extractVideoId(formData.sourceUrl) : null;
-
-                console.log("content inside videoID:", videoId)
-
-                // Update formData with extracted videoId
-                setFormData({
-                    ...formData,
-                    sourceUrl: videoId,
+        if (formData.caption !== "Image") {
+            if (!formData.sourceUrl.trim()) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Source URL is empty. Please provide a valid URL.",
                 });
+                return;
             }
+
+            // Extract videoId if sourceUrl is provided
+            const videoId = extractVideoId(formData.sourceUrl);
+            console.log("content inside videoID:", videoId)
+            if (!videoId) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Invalid YouTube URL. Please provide a valid YouTube URL.",
+                });
+                return;
+            }
+
+
 
             // Prepare data for submission
             const data = [{
                 ...formData,
+                sourceUrl: videoId,
+
             }];
+            console.log("content updated:", data)
+
 
             // Upload data
             UploadImages(data)
@@ -158,6 +172,7 @@ const AddPortfolio = ({ pagetitle }) => {
                     });
                 });
         }
+
     };
 
     const uploadfile = async (file) => {
@@ -242,7 +257,7 @@ const AddPortfolio = ({ pagetitle }) => {
                         >
                             <option value="">Select content type</option>
                             {contentTypelist.map(item =>
-                                <option value={item.value}>{item.label}</option>
+                                <option key={item.value} value={item.value}>{item.label}</option>
                             )}
                         </select>
                     </div>
@@ -268,7 +283,7 @@ const AddPortfolio = ({ pagetitle }) => {
                                 <small className='text-secondary text-center'>Preview</small>
                                 <img src={formData.src} alt="Uploaded Img" className='rounded-3 img-fluid' style={{
                                     height: "250px",
-                                    wieght: "250px",
+                                    width: "250px",
                                 }} />
                             </div>
                         )}

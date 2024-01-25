@@ -35,7 +35,7 @@ const PortfolioList = ({ pagetitle }) => {
                         </Link>
                     </div>
                     <hr className="hr hr-blurry border border-danger border-2" />
-                    <Portfolio userId={userId} />
+                    <Portfolio key={userId} userId={userId} />
                 </div>
             </div>
         </>

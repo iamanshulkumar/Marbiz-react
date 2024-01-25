@@ -115,7 +115,7 @@ const CelebFilterGallery = ({ userId }) => {
                 show={show}
                 onHide={handleClose}
                 centered
-                closeButton
+                closebutton
                 size="lg"
                 className="youtube-mobal-box"
                 id="youtube-mobal-box"

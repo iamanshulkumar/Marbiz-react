@@ -5,7 +5,7 @@ import { Modal, Button } from "react-bootstrap";
 import { getPublicList, getImagesListType } from "../services/api/api-service"
 import { useNavigate } from 'react-router-dom'
 
-const Portfolio = ({ userId }) => {
+const Portfolio = ({ key, userId }) => {
 
     const [list, setList] = useState([]);
     const [show, setShow] = useState(false);
@@ -151,7 +151,7 @@ const Portfolio = ({ userId }) => {
                 show={show}
                 onHide={handleClose}
                 centered
-                closeButton
+                closebutton
                 size="lg"
                 className="youtube-mobal-box"
                 id="youtube-mobal-box"
